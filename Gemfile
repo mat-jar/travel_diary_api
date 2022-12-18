@@ -6,8 +6,12 @@ ruby "3.1.2"
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem "omniauth-rails_csrf_protection"
+gem 'omniauth-rails_csrf_protection'
 gem 'dotenv-rails'
+gem 'devise_token_auth'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'httparty'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
