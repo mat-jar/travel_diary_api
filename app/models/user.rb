@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  has_many :entries
 
          def self.from_omniauth(params)
            find_or_create_by(provider: params[:provider], uid: params[:uid]) do |user|

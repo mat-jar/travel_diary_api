@@ -1,5 +1,6 @@
 class Entry < ApplicationRecord
   validates :title, :note, :place, :weather, presence: true
+  belongs_to :user
 
   def slug
     return nil unless persisted?
