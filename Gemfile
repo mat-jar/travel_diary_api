@@ -11,6 +11,7 @@ gem 'dotenv-rails'
 gem 'devise_token_auth'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'httparty'
+gem 'simplecov', require: false, group: :test
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
