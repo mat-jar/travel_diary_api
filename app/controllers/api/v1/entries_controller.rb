@@ -1,18 +1,27 @@
 class Api::V1::EntriesController < ApplicationController
+  include DeviseTokenAuth::Concerns::SetUserByToken
   before_action :set_entry, only: %i[ show edit update destroy ]
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
+
+
 
   def index
-    @entries = Entry.all
+    @entries = Entry.where(user_id: current_user.id)
     render json: @entries, status: :ok
   end
 
   def show
-    render json: @entry, status: :ok
+    if @entry.user != current_user
+      render json: { message: "Not authorized to see this entry"}, status: :forbidden
+    else
+      render json: @entry, status: :ok
+    end
   end
 
   def create
     @entry = Entry.new(entry_params)
+    @entry.user = current_user
+    @entry.weather = GetWeatherFromPlace.call(entry_params[:place])
 
     if @entry.save
       render json: @entry, status: :ok
@@ -23,6 +32,11 @@ class Api::V1::EntriesController < ApplicationController
   end
 
   def update
+
+    if @entry.user != current_user
+      render json: { message: "Not authorized to edit this entry"}, status: :forbidden
+    end
+
     if @entry.update(entry_params)
       render json: @entry, status: :ok
     else
@@ -31,6 +45,11 @@ class Api::V1::EntriesController < ApplicationController
   end
 
   def destroy
+
+    if @entry.user != current_user
+      render json: { message: "Not authorized to delete this entry"}, status: :forbidden
+    end
+
     @entry.destroy
     render json: { notice: 'Entry was successfully removed.' }
     head :no_content, status: :ok
@@ -61,7 +80,7 @@ class Api::V1::EntriesController < ApplicationController
     end
 
     def entry_params
-      params.require(:entry).permit(:title, :place, :note, :weather)
+      params.require(:entry).permit(:title, :place, :note) #no :weather in params, fetched automatically 
     end
 
     def coordinates_params
