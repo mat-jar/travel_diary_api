@@ -48,11 +48,11 @@ class Api::V1::EntriesController < ApplicationController
 
     if @entry.user != current_user
       render json: { message: "Not authorized to delete this entry"}, status: :forbidden
+    else
+      @entry.destroy
+      render json: { notice: 'Entry was successfully removed.' }
+      head :no_content, status: :ok
     end
-
-    @entry.destroy
-    render json: { notice: 'Entry was successfully removed.' }
-    head :no_content, status: :ok
   end
 
   def get_coordinates
@@ -80,7 +80,8 @@ class Api::V1::EntriesController < ApplicationController
     end
 
     def entry_params
-      params.require(:entry).permit(:title, :place, :note) #no :weather in params, fetched automatically 
+      params.fetch(:entry, {}).permit(:title, :place, :note, :weather)
+      #accept weather param to enable user to change fetched weather on update
     end
 
     def coordinates_params
