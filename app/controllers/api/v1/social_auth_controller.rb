@@ -1,5 +1,6 @@
 require 'json'
 class Api::V1::SocialAuthController < ApplicationController
+  include DeviseTokenAuth::Concerns::SetUserByToken
 
   def authenticate_social_auth_user
     #  params is the response I receive from the client with the data from the provider about the user
