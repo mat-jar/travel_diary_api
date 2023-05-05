@@ -1,12 +1,12 @@
 # Travel Diary app
 ## tl;dr
-- Ruby on Rails backend and React frontend, both hosted on Heroku
+- Ruby on Rails backend (hosted on Fly.io) and React frontend (hosted on netlify.com)
 - Front:
-  - https://travel-diary.herokuapp.com
+  - https://mat-travel-diary.netlify.app
   - Gitgub repo: <a href='https://github.com/mat-jar/travel_diary_front'>travel_diary_front</a>
   - React: class and function components, useState, useEffect, conditional render, axios, runtimeEnv, bootstrap, react-bootstrap, font-awesome,  custom css, react-toastify, confirmation pop-up (react-bootstrap Modal), OAuth (react-google-login, gapi), localStorage, backend authorisation with request headers
 - API:
-  - https://travel-diary-api.herokuapp.com
+  - https://travel-diary-api.fly.dev
   - Gitgub repo: <a href='https://github.com/mat-jar/travel_diary_api'>travel_diary_api</a>
   - RoR: api, OAuth (Google), Devise, devise_token_auth, service objects, query objects, httparty, PostgreSQL, Rspec (request tests), external API integration
 
