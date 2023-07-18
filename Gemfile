@@ -13,6 +13,8 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'httparty'
 gem 'simplecov', require: false, group: :test
 
+gem 'googleauth'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
@@ -83,3 +85,5 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
 end
+
+gem "dockerfile-rails", ">= 1.2", :group => :development

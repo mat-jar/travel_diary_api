@@ -1,9 +1,13 @@
 require 'json'
+require 'googleauth'
+
 class Api::V1::SocialAuthController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   def authenticate_social_auth_user
     #  params is the response I receive from the client with the data from the provider about the user
+    data = Google::Auth::IDTokens.verify_oidc params[:access_token], aud: ENV["GOOGLE_CLIENT_ID"]
+    debugger
     @user = User.from_omniauth(params) # this method add a user who is new or logins an old one
     if @user.persisted?
       # I log the user in at this point
